@@ -1,1 +1,1 @@
-export const DB_NAME="BOOK_STORE";
+export const DB_NAME="saaim";

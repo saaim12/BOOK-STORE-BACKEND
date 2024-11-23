@@ -1,22 +1,16 @@
-import mongoose from "mongoose";
-import DB_NAME from'./constants';
+import dotenv from 'dotenv';
 import express from "express"
-const app=express();
-//writting iife for the immediately connection of database
-(
-    async()=>{
-     try {
-       await mongoose.connect(`${process.env.MONGODB_URI}/${DB_NAME}`)
-       app.on("error",(error)=>{
-        console.log("===>ERROR ON turnng on express",error)
-        throw error;
-       })
-       app.listen(process.env.PORT,()=>{
-        console.log("app is listening on port",process.env.PORT)
-       })
-     }   catch(error){
-        console.log("===>ERROR ON CONNECTING DB",error)
-        throw error;
-    }
-    } 
-)()
+// Load environment variables from the .env file as soon as the app starts
+dotenv.config({ path: './env' });
+const app=express()
+import connectDB from "./db/index.js";
+
+connectDB()
+.then(
+  app.listen(process.env.PORT || 8000,()=>{
+    console.log(`server is running on port: ${process.env.PORT} `)
+  })
+)
+.catch(()=>{
+  console.log("mongo DB connection failed");
+})
