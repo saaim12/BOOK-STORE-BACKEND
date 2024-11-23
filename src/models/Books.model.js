@@ -27,35 +27,28 @@ const bookSchema = new Schema(
       default: '0%', // Default discount value
     },
     discounted_price: {
-      type: float,
-     
+      type: Number,
     },
     price: {
       type: Number,
       required: true,
     },
-    
     rating: {
       type: Number,
-      min: 1,
-      max: 5,
-      default: 0,
+     
     },
-    reviews:{
-      type:Number
+    reviews: {
+      type: Number,
     },
     stock: {
       type: Number,
-      required: true,
-      default: 0, // Default stock value
+     
     },
     cover: {
       type: String,
-      
     },
     paper: {
       type: String,
-      
     },
     isbn: {
       type: String,
@@ -70,16 +63,10 @@ const bookSchema = new Schema(
       trim: true,
     },
     image: {
-      type: String,// maybe cloudinary
+      type: String, // maybe cloudinary
       trim: true,
     },
-    user_id: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User', // Reference to User collection
-      required: true,
-    },
   },
- 
 );
 
 export const Book = mongoose.model('Book', bookSchema);
