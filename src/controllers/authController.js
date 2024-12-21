@@ -1,4 +1,4 @@
-import { User } from '../models/User.model';
+import  {User}  from '../models/User.model.js';
 
 // Register new user
 export const registerUser = async (req, res) => {
@@ -12,10 +12,10 @@ export const registerUser = async (req, res) => {
   }
 };
 
-// Login user and generate tokens
 export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
+
     const user = await User.findOne({ email });
     if (!user) return res.status(400).json({ error: 'User not found' });
 
@@ -25,8 +25,13 @@ export const loginUser = async (req, res) => {
     const accessToken = user.generateAccessToken();
     const refreshToken = user.generateRefreshToken();
 
-    res.json({ accessToken, refreshToken });
+    res.json({
+      accessToken,
+      refreshToken,
+      userId: user._id,
+    });
   } catch (err) {
     res.status(500).json({ error: 'Login failed', details: err });
   }
 };
+

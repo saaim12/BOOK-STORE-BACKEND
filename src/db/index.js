@@ -3,7 +3,6 @@ import { DB_NAME } from "../constants.js";
 import dotenv from 'dotenv';
 dotenv.config();
 
-// Function to connect to MongoDB
 const connectDB = async () => {
     try {
         if (!process.env.MONGODB_URI) {
